@@ -1,5 +1,6 @@
 const {
   userRoutes,
+  productRoutes,
   // projectRoutes,
   // renderxRoutes,
   // consumerRoutes,
@@ -9,7 +10,7 @@ const getBasePath = require("../../getBasePath");
 
 module.exports = async (app) => {
   app.use("/api/user", userRoutes);
-  // app.use("/api/project", projectRoutes);
+   app.use("/api/product", productRoutes);
   // app.use("/api/renderx", renderxRoutes);
   // app.use("/api/consumers", consumerRoutes);
   app.get("*", (req, res) => {

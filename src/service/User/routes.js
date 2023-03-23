@@ -4,7 +4,9 @@ const {
     getUsers, 
     createAUser,
     loginUser,
-    updateUser
+    updateUser,
+    getAllUsers,
+    userByFilters,
 } = require("./controller/index");
 
 
@@ -17,6 +19,10 @@ Router.post("/login", loginUser);
 Router.get("/find/:id", verifyTokenAndAdmin,getUsers);
 //update user
 Router.put("/update", verifyTokenAndAuthorization,updateUser);
+// get all user
+Router.get("/", verifyTokenAndAdmin,getAllUsers);
+// get  user by dates filter
+Router.get("/filter", verifyTokenAndAdmin,userByFilters);
 
 
 
