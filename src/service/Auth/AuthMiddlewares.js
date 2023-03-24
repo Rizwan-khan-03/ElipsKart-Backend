@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-
+const logger = require("../../utils/logger");
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.token;
   if (authHeader) {
@@ -18,6 +18,7 @@ const verifyToken = (req, res, next) => {
   }
 };
 const verifyTokenAndAuthorization = (req, res, next) => {
+
   verifyToken(req, res, () => {
     const userIdFromBody = req.body.id;
     if (req.user && req.user.id === userIdFromBody) {

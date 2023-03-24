@@ -5,7 +5,8 @@ const {
     getAllProducts,
     getProduct,
     productByFilters,
-    updateProduct
+    updateProduct,
+    deleteProduct
 } = require("./controller/index");
 
 
@@ -16,11 +17,12 @@ Router.post("/addproduct",verifyTokenAndAdmin, addProduct);
 // get product
 Router.get("/find/:id", verifyTokenAndAdmin,getProduct);
 //update product
-Router.put("/update", verifyTokenAndAuthorization,updateProduct);
+Router.put("/update", verifyTokenAndAdmin,updateProduct);
 // get all user
 Router.get("/", verifyTokenAndAdmin,getAllProducts);
 // get  product by dates filter
 Router.get("/filter", verifyTokenAndAdmin,productByFilters);
+Router.delete("/:id", verifyTokenAndAdmin,deleteProduct);
 
 
 
