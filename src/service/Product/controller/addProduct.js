@@ -1,5 +1,4 @@
 const {ProductModal} = require("../models/index");
-const CryptoJS = require("crypto-js");
 const logger = require("../../../utils/logger");
 module.exports = async (req, res) => {
 	try {

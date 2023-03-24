@@ -1,8 +1,8 @@
-const {UserModal} = require("../models");
+const {ProductModal} = require("../models");
 
 module.exports = async (req, res) => {
 	try {
-	  const user = await UserModal.findById(req.params.id);
+	  const user = await ProductModal.findById(req.params.id);
 	  const { password, ...others } = user._doc;
 	  console.log(others);
 	  res.status(200).send({ payload: others, message: "User exist  ..." ,responseCode:200})
