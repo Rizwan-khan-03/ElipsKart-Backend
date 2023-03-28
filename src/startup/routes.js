@@ -1,6 +1,8 @@
 const {
   userRoutes,
   productRoutes,
+  CartRoutes,
+  orderRoutes,
   // projectRoutes,
   // renderxRoutes,
   // consumerRoutes,
@@ -11,8 +13,8 @@ const getBasePath = require("../../getBasePath");
 module.exports = async (app) => {
   app.use("/api/user", userRoutes);
    app.use("/api/product", productRoutes);
-  // app.use("/api/renderx", renderxRoutes);
-  // app.use("/api/consumers", consumerRoutes);
+  app.use("/api/cart", CartRoutes);
+   app.use("/api/order", orderRoutes);
   app.get("*", (req, res) => {
     res.sendFile(path.join(getBasePath, "static/index.html"));
   });

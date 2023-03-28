@@ -10,18 +10,36 @@ module.exports = async (req, res) => {
 
         const hashedPssword = CryptoJS.AES.decrypt(user.password, process.env.PASS_KEY);
         const originalPassword = hashedPssword.toString(CryptoJS.enc.Utf8);
-        originalPassword !== req.body.password && res.status(400).send({ payload: {}, message: "Wrong Cendential" });
+
+        originalPassword !== req.body.password && res.status(400).send({
+            payload: {},
+            message: "Wrong Cendential"
+        });
+
         const { password, ...others } = user._doc;
-        const accesToken = await getToken({id: user._id,isAdmin: user.isAdmin})
-        if(accesToken){
-            res.status(200).send({ payload: { ...others }, message: "Login Success", token: accesToken })
-        }else{
+
+        const accesToken = await getToken({ id: user._id, isAdmin: user.isAdmin })
+        if (accesToken) {
+            res.status(200).send({
+                payload: { ...others },
+                message: "Login Success",
+                token: accesToken
+            })
+        } else {
             logger.info(`accesToken  ${accesToken}...`);
-            res.status(400).send({ payload: {}, message: "token not exist", accesToken: accesToken })
+            res.status(400).send({
+                payload: {},
+                message: "token not exist",
+                accesToken: accesToken
+            })
         }
     } catch (error) {
-        
-        res.status(400).send({ payload: {}, message: "Wrong Cendential", err: error })
+
+        res.status(400).send({
+            payload: {},
+            message: "Wrong Cendential",
+            err: error
+        })
     }
 
 }
