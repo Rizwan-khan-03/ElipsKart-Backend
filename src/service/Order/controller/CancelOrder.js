@@ -1,11 +1,11 @@
-const { ProductModal } = require("../models");
+const {OrderModels} = require("../models/index");
 
 module.exports = async (req, res) => {
     try {
-        const deletedProduct = await ProductModal.findByIdAndDelete(req.params.id,);
+        const cancelOrder = await OrderModels.findByIdAndDelete(req.params.id,);
         res.status(200).send({
-            payload: deletedProduct,
-            message: "product has been deleted...",
+            payload: cancelOrder,
+            message: "product has been cancelled...",
             responseCode: 200
         })
     } catch (err) {
