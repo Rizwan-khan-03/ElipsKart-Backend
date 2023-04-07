@@ -1,4 +1,4 @@
-const { ProductModal } = require("../models");
+const {OrderModels} = require("../models/index");
 const CryptoJS = require("crypto-js");
 
 module.exports = async (req, res) => {
@@ -10,26 +10,26 @@ module.exports = async (req, res) => {
   }
   try {
     // find by product id
-    const updatedUser = await ProductModal.findByIdAndUpdate(
+    const updateOrder = await OrderModels.findByIdAndUpdate(
       req.body.id,
       {
         $set: req.body,
       },
       { new: true }
     );
-    if (updatedUser) res.status(200).send({
-      payload: updatedUser,
-      message: "product update success",
+    if (updateOrder) res.status(200).send({
+      payload: updateOrder,
+      message: "order update success",
       responseCode: 200
     });
     else res.status(400).send({
       payload: {},
-      message: "product not found",
+      message: "order not found",
       responseCode: 400
     });
 
   } catch (err) {
-    res.status(400).send({
+    res.status(401).send({
       payload: {},
       message: "some thing is wrong",
       responseCode: 401

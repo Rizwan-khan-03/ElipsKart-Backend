@@ -1,29 +1,30 @@
 const Router = require("express").Router();
-const { verifyTokenAndAdmin ,verifyTokenAndAuthorization } = require("../Auth/AuthMiddlewares");
+const { verifyTokenAndAdmin, verifyTokenAndAuthorization, verifyToken } = require("../Auth/AuthMiddlewares");
 const {
     // addProduct,
     // getAllProducts,
     // getProduct,
     // productByFilters,
     // updateProduct,
-    // deleteProduct
-    createOrder
+    createOrder,
+    CancelOrder,
+    updateOrder,
+    allOrderDetails,
+    getSingleOrder,
 } = require("./controller/index");
 
 
 
 // create Order
-Router.post("/createOrder",verifyTokenAndAdmin, createOrder);
-
-// // get product
-// Router.get("/find/:id", verifyTokenAndAdmin,getProduct);
-// //update product
-// Router.put("/update", verifyTokenAndAdmin,updateProduct);
-// // get all user
-// Router.get("/", verifyTokenAndAdmin,getAllProducts);
-// // get  product by dates filter
-// Router.get("/filter", verifyTokenAndAdmin,productByFilters);
-// Router.delete("/:id", verifyTokenAndAdmin,deleteProduct);
+Router.post("/createOrder", verifyToken, createOrder);
+// cancell order
+Router.delete("/:id", verifyToken, CancelOrder);
+//update product
+Router.put("/update", verifyToken, updateOrder);
+ // get order
+ Router.get("/details/:id", verifyToken,getSingleOrder);
+// get all order only for admin
+Router.get("/", verifyTokenAndAdmin, allOrderDetails);
 
 
 

@@ -1,8 +1,9 @@
 module.exports = {
 	createOrder: require("./createOrder"),
-	// getAllProducts:require("./getAllProducts"),
-	// getProduct:require("./getProduct"),
-	// updateProduct:require("./updateProduct"),
+	CancelOrder: require("./CancelOrder"),
+	updateOrder: require("./updateOrder"),
+	allOrderDetails: require("./allOrderDetails"),
+	getSingleOrder:require("./getSingleOrder")
 	// productByFilters:require('./productByFilters'),
 	// deleteProduct:require("./deleteProduct")
 };
