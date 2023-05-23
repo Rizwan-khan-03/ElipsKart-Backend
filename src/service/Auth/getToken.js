@@ -14,7 +14,7 @@ const getToken = async ({ id, isAdmin }) => {
           if (err) {
             reject(err);
           } else {
-            resolve(token);
+            resolve(token); 
           }
         }
       );

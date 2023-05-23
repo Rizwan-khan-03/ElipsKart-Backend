@@ -5,13 +5,13 @@ const getToken = require('../../Auth/getToken')
 module.exports = async (req, res) => {
 
     try {
-        const user = await UserModal.findOne({ username: req.body.username });
+        const user = await UserModal.findOne({ email: req.body.email });
         !user && res.status(400).send({ payload: {}, message: "User Not Found" });
 
-        const hashedPssword = CryptoJS.AES.decrypt(user.password, process.env.PASS_KEY);
-        const originalPassword = hashedPssword.toString(CryptoJS.enc.Utf8);
+        // const hashedPssword = CryptoJS.AES.decrypt(user.password, process.env.PASS_KEY);
+        // const originalPassword = hashedPssword.toString(CryptoJS.enc.Utf8);
 
-        originalPassword !== req.body.password && res.status(400).send({
+        user.password !== req.body.password && res.status(400).send({
             payload: {},
             message: "Wrong Cendential"
         });
@@ -21,16 +21,16 @@ module.exports = async (req, res) => {
         const accesToken = await getToken({ id: user._id, isAdmin: user.isAdmin })
         if (accesToken) {
             res.status(200).send({
+                success: true,
                 payload: { ...others },
                 message: "Login Success",
-                token: accesToken
+                accesToken: accesToken
             })
         } else {
             logger.info(`accesToken  ${accesToken}...`);
             res.status(400).send({
                 payload: {},
                 message: "token not exist",
-                accesToken: accesToken
             })
         }
     } catch (error) {

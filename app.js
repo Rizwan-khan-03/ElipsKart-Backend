@@ -1,42 +1,42 @@
-
-// const express = require('express');
-// require('./DB/config')
-// const app = express();
-// app.use(express.json())
-// const PORT = 6000;
-
-
-
-
-// // router 
-// const authRouter =require('./routes/Auth');
-// const userRouter = require('./routes/users');
-// const productRouter = require('./routes/product');
-// const cartRouter = require('./routes/cart');
-
-// // api
-
-// app.use('/api/auth',authRouter);
-// app.use('/api/user',userRouter);
-// app.use('/api/products',productRouter);
-// app.use('/api/cart',cartRouter);
-
-// app.listen(PORT, () => {
-//     console.log(`Server is listening on port ${PORT}`);
-// });
-
 const app = require("express")();
 require("./src/startup/index")(app);
 module.exports = app;
+
 const http = require("http");
 const port =  "5000";
 const logger = require("./src/utils/logger");
-const server = http.createServer(app);
-server.listen(port, () => {
-	logger.info(`Listening on ${port}...`);
-	// console.log(`Server running on port ${port}`);
-  });
+const cors = require("cors");
 
-// const app = require("express")();
-// require("./src/startup/index")(app);
-// module.exports = app;
+app.set("port", port);
+app.use(cors());
+
+const server = http.createServer(app);
+const onListening = () => {
+  const addr = server.address();
+  const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
+  logger.info(`Listening on ${bind}...`);
+};
+
+const onError = (error) => {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+  const bind = typeof port === "string" ? `Pipe ${port}` : `Port ${port}`;
+  switch (error.code) {
+    case "EACCES":
+      logger.error(`${bind} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      logger.error(`${bind} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+};
+
+server.listen(port);
+server.on("error", onError);
+server.on("listening", onListening);
+

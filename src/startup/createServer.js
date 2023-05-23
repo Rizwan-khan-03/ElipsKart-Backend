@@ -1,12 +1,12 @@
 const http = require("http");
 const app = require("../../app");
-const port =  "4000";
+const port =  "8000";
 const logger = require("../utils/logger");
 
 app.set("port", port);
 
 const server = http.createServer(app);
-
+logger.info(`server on ${server}...`);
 const onListening = () => {
   const addr = server.address();
   const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;

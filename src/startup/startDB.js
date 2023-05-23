@@ -5,6 +5,7 @@ module.exports = async () => {
   const DB_CONNECTION_STRING =process.env.MONGO_URL;
   const url = DB_CONNECTION_STRING || "mongodb://localhost:27017";
   const dbName = "NEWECOM";
+  logger.info(`url...${url}`);
   try {
     await mongoose.connect(url, {
       dbName,
